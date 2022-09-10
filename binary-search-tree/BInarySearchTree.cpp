@@ -1,4 +1,8 @@
 #include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+
 #define INVALID_INPUT -5
 
 
@@ -7,11 +11,7 @@ class Node {
     int val;
     std::shared_ptr<Node> left;
     std::shared_ptr<Node> right;
-    Node(int value) {
-      val = value;
-      left = nullptr;
-      right = nullptr;
-    }
+    Node(int value): val(value), left(nullptr), right(nullptr) {}
 };
 
 struct FindResult {
@@ -21,7 +21,21 @@ struct FindResult {
 
 class BinarySearchTree {
   private:
+    
     std::shared_ptr<Node> root;
+
+    void _print_tree(std::string& prefix, std::shared_ptr<Node> node, bool is_left) {
+      if (node == nullptr) return;
+
+      std::cout << prefix;
+
+      std::cout << (is_left ? "├──" : "└──" );
+
+      std::cout << node->val << std::endl;
+      std::string new_prefix = prefix + (is_left ? "│   " : "    ");
+      _print_tree( new_prefix, node->left, true);
+      _print_tree( new_prefix, node->right, false);
+    }
 
     void _inorder(std::shared_ptr<Node> node) {
       if (!node) {
@@ -148,6 +162,11 @@ class BinarySearchTree {
         node_to_be_deleted->val = val_for_node_to_be_deleted;
       }
     }
+
+    void b_tree_print() {
+      std::string start = "";
+      _print_tree(start, root, false);
+    }
 };
 
 int main() {
@@ -157,10 +176,11 @@ int main() {
 
   while(true) {
     std::cout << "Enter the number to choose an operation: \n\
-    1. Add int to binary tree. \n\
-    2. Remove int from binary tree. \n\
-    3. Check if a value exists in a binary tree. \n\
-    4. Exit program. \n";
+    1. Add int to binary search tree. \n\
+    2. Remove int from binary search tree. \n\
+    3. Check if a value exists in a binary search tree. \n\
+    4. Inorder traversal of the binary search tree. \n\
+    5. Exit program. \n";
 
     std::cin >> input;
     int val;
@@ -184,7 +204,12 @@ int main() {
         std::cout << "Finding result (0 if not found, 1 if found): " << found << std::endl;
         break;
       }
-      case 4:{
+       case 4:{
+        std::cout << "In order traversal: " << std::endl;
+        binaryTree.print();
+        break;
+      }
+      case 5:{
         std::cout << "Thank you!" << std::endl;
         return 0;
       }
@@ -196,7 +221,7 @@ int main() {
     }
 
     std::cout << "**** Your BST *****" << std::endl;
-    binaryTree.print();
+    binaryTree.b_tree_print();
     std::cout << "*******\n";
   }
 }
