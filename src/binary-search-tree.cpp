@@ -40,7 +40,7 @@ std::shared_ptr<Node> DatabaseDataStructure::BinarySearchTree::_find_inorder_suc
 	return n;
 }
 
-void _inorder(std::shared_ptr<Node> node) {
+void DatabaseDataStructure::BinarySearchTree::_inorder(std::shared_ptr<Node> node) {
 	if (!node) {
 		return;
 	}
