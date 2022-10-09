@@ -12,9 +12,10 @@ namespace DatabaseDataStructure {
 			virtual bool find(int value) = 0;
 			virtual void remove(int value) = 0;
 			virtual void print() = 0;
+			virtual ~Tree() = 0;
 	};
 
-	class BinarySearchTree: Tree {
+	class BinarySearchTree : public Tree {
 		std::shared_ptr<Node> root;
 		std::shared_ptr<Node> _find_inorder_successor(std::shared_ptr<Node> node);
 		FindResult _recur_find(std::shared_ptr<Node> node, std::shared_ptr<Node> parent, int value);
@@ -30,14 +31,18 @@ namespace DatabaseDataStructure {
 		void b_tree_print();
 	};
 
-	// class RedBlackTree: Tree {
-	// 	public:
-	// 	RedBlackTree();
-	// 	void add(int value);
-	// 	bool find(int value);
-	// 	void remove(int value);
-	// 	void print();
-	// 	void b_tree_print();
-	// }
+	class RedBlackTree : public Tree {
+		std::shared_ptr<Node> root;
+		void rebalance_tree(std::shared_ptr<Node> node);
+		void rotate_left(std::shared_ptr<Node> node);
+		void rotate_right(std::shared_ptr<Node> node);
+		public:
+		RedBlackTree();
+		void add(int value);
+		bool find(int value);
+		void remove(int value);
+		void print();
+		void b_tree_print();
+	}
 
 }
