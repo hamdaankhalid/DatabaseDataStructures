@@ -1,5 +1,7 @@
 # Database data structures
 
-- Cmake
-- BST
-- AVL
+- BST: DONE
+- AVL: WIP
+- Bloom Filters: TODO
+- LSM Tree: TODO
+
