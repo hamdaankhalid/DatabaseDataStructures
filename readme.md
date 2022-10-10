@@ -1,7 +1,7 @@
 # Database data structures
 
-- BST: DONE
-- AVL: WIP
+- Binary Search Tree: DONE
+- Red Black Tree: WIP
 - Bloom Filters: TODO
 - LSM Tree: TODO
 
