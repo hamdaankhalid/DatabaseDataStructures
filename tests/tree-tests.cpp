@@ -46,13 +46,13 @@ TEST(RBL, Add)   {
   
   rbl.add(1);
   rbl.add(4);
-  rbl.add(3);
-  rbl.add(5);
+  rbl.add(-3);
+  //rbl.add(5);
 
   EXPECT_TRUE(rbl.find(1));
   EXPECT_TRUE(rbl.find(4));
-  EXPECT_TRUE(rbl.find(3));
-  EXPECT_TRUE(rbl.find(5));
+  EXPECT_TRUE(rbl.find(-3));
+  //EXPECT_TRUE(rbl.find(5));
 }
 
 // TEST(RBL, Find)   {

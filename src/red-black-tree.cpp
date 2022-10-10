@@ -42,9 +42,10 @@ void DatabaseDataStructure::RedBlackTree::add(int value) {
   }
 
   new_node->parent = parent;
-  if (value < parent->val) {
+  int parent_val = parent->val;
+  if (value < parent_val) {
     parent->left = new_node;
-  } else if (value > parent->val) {
+  } else if (value > parent_val) {
     parent->right = new_node;
   } else {
     return;
@@ -55,7 +56,15 @@ void DatabaseDataStructure::RedBlackTree::add(int value) {
 
 
 void DatabaseDataStructure::RedBlackTree::rebalance_tree(std::shared_ptr<RBLNode> node) {
-  while (node!=nullptr && node->parent!=nullptr && !node->parent->isBlack) {
+  { std::cout << "I AM " << node->val << " AND MY PARENT IS ";
+  if (node->parent!=nullptr)
+    std::cout << node->parent->val << std::endl;
+  else
+    std::cout << "Nobody :(" << std::endl;
+  }
+
+  while (node->parent!=nullptr && node->parent->parent!=nullptr && !node->parent->isBlack) {
+    std::cout << "rebala\n";
     // TODO: SEGFAULT HERE
     if (node->parent == node->parent->parent->left) { // is node's parent a left child
       std::shared_ptr<RBLNode> aunty = node->parent->parent->right;
