@@ -50,6 +50,8 @@ TEST(RBL, Add)   {
   rbl.add(-3);
   rbl.add(-5);
   rbl.add(2);
+  rbl.add(78);
+  rbl.add(-78);
 
 
   EXPECT_TRUE(rbl.find(1));
@@ -58,6 +60,8 @@ TEST(RBL, Add)   {
   EXPECT_TRUE(rbl.find(-5));
   EXPECT_TRUE(rbl.find(2));
   EXPECT_TRUE(rbl.find(5));
+  EXPECT_TRUE(rbl.find(78));
+  EXPECT_TRUE(rbl.find(-78));
 }
 
 // TEST(RBL, Find)   {
