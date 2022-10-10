@@ -5,14 +5,16 @@
 class Node;
 struct FindResult;
 
+class RBLNode;
+
 namespace DatabaseDataStructure {
 	class Tree {
 		public:
+			virtual ~Tree(){};
 			virtual void add(int value) = 0;
 			virtual bool find(int value) = 0;
 			virtual void remove(int value) = 0;
 			virtual void print() = 0;
-			virtual ~Tree() = 0;
 	};
 
 	class BinarySearchTree : public Tree {
@@ -32,10 +34,10 @@ namespace DatabaseDataStructure {
 	};
 
 	class RedBlackTree : public Tree {
-		std::shared_ptr<Node> root;
-		void rebalance_tree(std::shared_ptr<Node> node);
-		void rotate_left(std::shared_ptr<Node> node);
-		void rotate_right(std::shared_ptr<Node> node);
+		std::shared_ptr<RBLNode> root;
+		void rebalance_tree(std::shared_ptr<RBLNode> node);
+		void rotate_left(std::shared_ptr<RBLNode> node);
+		void rotate_right(std::shared_ptr<RBLNode> node);
 		public:
 		RedBlackTree();
 		void add(int value);
