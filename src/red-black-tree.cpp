@@ -59,22 +59,22 @@ void DatabaseDataStructure::RedBlackTree::rebalance_tree(std::shared_ptr<RBLNode
   { 
     std::cout << "I AM " << node->val << " AND MY PARENT IS ";
     if (node->parent!=nullptr)
-      std::cout << node->parent->val << std::endl;
+      std::cout << node->parent->val << " and is black " << node->parent->isBlack<< std::endl;
     else
       std::cout << "Nobody :(" << std::endl;
   }
 
-  while (node->parent!=nullptr && node->parent->parent!=nullptr && !node->parent->isBlack) {
-  
-    // TODO: SEGFAULT HERE
-    if (node->parent == node->parent->parent->left) { // is node's parent a left child
+  while (node->parent!=nullptr && node->parent->parent!=nullptr && !node->parent->isBlack) {  
+    if (node->parent == node->parent->parent->left) { // is node's parent is a left child
       std::shared_ptr<RBLNode> aunty = node->parent->parent->right;
-      if (!aunty->isBlack) {
+      if (aunty != nullptr && !aunty->isBlack) {
+        
         node->parent->isBlack = true;
         aunty->isBlack = true;
         node->parent->parent->isBlack = false;
         node = node->parent->parent;
-      } else {
+      } else { // the aunt is black
+      
         if (node == node->parent->right) {
           node = node->parent;
           rotate_left(node);
@@ -85,7 +85,8 @@ void DatabaseDataStructure::RedBlackTree::rebalance_tree(std::shared_ptr<RBLNode
       }
     } else {
       std::shared_ptr<RBLNode> aunty = node->parent->parent->left;
-      if (!aunty->isBlack) {
+
+      if (aunty != nullptr && !aunty->isBlack) {
         node->parent->isBlack = true;
         aunty->isBlack = true;
         node->parent->parent->isBlack = false;
@@ -96,6 +97,7 @@ void DatabaseDataStructure::RedBlackTree::rebalance_tree(std::shared_ptr<RBLNode
         }
         node->parent->isBlack = true;
         node->parent->parent->isBlack = false;
+
         rotate_left(node->parent->parent);
       }
     }
@@ -135,9 +137,9 @@ void DatabaseDataStructure::RedBlackTree::b_tree_print() {
 
 
 void DatabaseDataStructure::RedBlackTree::rotate_left(std::shared_ptr<RBLNode> node) {
-  auto right_child = node->right;
+  std::shared_ptr<RBLNode> right_child = node->right;
   node->right = right_child->left;
-  if (right_child->left == nullptr) {
+  if (right_child->left != nullptr) {
     right_child->left->parent = node;
   }
   right_child->parent = node->parent;
@@ -156,7 +158,7 @@ void DatabaseDataStructure::RedBlackTree::rotate_left(std::shared_ptr<RBLNode> n
 void DatabaseDataStructure::RedBlackTree::rotate_right(std::shared_ptr<RBLNode> node) {
   auto left_child = node->left;
   node->left = left_child->left;
-  if (left_child->right == nullptr) {
+  if (left_child->right != nullptr) {
     left_child->right->parent = node;
   }
   left_child->parent = node->parent;
