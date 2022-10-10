@@ -43,6 +43,5 @@ namespace DatabaseDataStructure {
 		void remove(int value);
 		void print();
 		void b_tree_print();
-	}
-
+	};
 }

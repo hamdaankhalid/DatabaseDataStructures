@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 set(Sources 
-    binary-search-tree-tests.cpp
+  tree-tests.cpp
 )
 
 add_executable(database_data_structures_tests ${Sources}) 

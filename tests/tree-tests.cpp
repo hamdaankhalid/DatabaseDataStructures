@@ -1,23 +1,30 @@
 #include<gtest/gtest.h>
 #include <database-data-structures/data-structures.hpp>
 
-TEST(BinarySearchTreeTests, Insert)   {
+
+TEST(BST, Insert)   {
   DatabaseDataStructure::BinarySearchTree bst;
   bst.add(1);
   EXPECT_TRUE(bst.find(1));
 }
 
-TEST(BinarySearchTreeTests, Find)   {
+TEST(BST, Find)   {
   DatabaseDataStructure::BinarySearchTree bst;
   EXPECT_FALSE(bst.find(1));
   bst.add(1);
   EXPECT_TRUE(bst.find(1));
 }
 
-TEST(BinarySearchTreeTests, Remove)   {
-  DatabaseDataStructure::BinarySearchTree bst;
-  bst.add(1);
-  EXPECT_TRUE(bst.find(1));
-  bst.remove(1);
-  EXPECT_FALSE(bst.find(1));
+TEST(RBL, Insert)   {
+  DatabaseDataStructure::RedBlackTree rbl;
+  rbl.add(1);
+  EXPECT_TRUE(rbl.find(1));
 }
+
+TEST(RBL, Find)   {
+  DatabaseDataStructure::RedBlackTree rbl;
+  EXPECT_FALSE(rbl.find(1));
+  rbl.add(1);
+  EXPECT_TRUE(rbl.find(1));
+}
+
