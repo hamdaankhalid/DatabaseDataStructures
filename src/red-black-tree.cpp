@@ -136,9 +136,18 @@ void DatabaseDataStructure::RedBlackTree::_print_tree(std::string& prefix, std::
 	_print_tree( new_prefix, node->right, false);
 }
 
+void DatabaseDataStructure::RedBlackTree::_inorder(std::shared_ptr<RBLNode> node) {
+  if (!node) {
+		return;
+	}
+	_inorder(node->left);
+	std::cout << node->val << std::endl;
+	_inorder(node->right);
+}
 
 void DatabaseDataStructure::RedBlackTree::b_tree_print() {
-
+  std::string start = "";
+  _print_tree(start, root, false);
 }
 
 
