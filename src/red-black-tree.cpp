@@ -119,7 +119,21 @@ void DatabaseDataStructure::RedBlackTree::remove(int value) {
 
 
 void DatabaseDataStructure::RedBlackTree::print() {
+  std::string start = "";
+  _print_tree(start, root, false);
+}
 
+void DatabaseDataStructure::RedBlackTree::_print_tree(std::string& prefix, std::shared_ptr<RBLNode> node, bool is_left){
+  if (node == nullptr) return;
+
+	std::cout << prefix;
+
+	std::cout << (is_left ? "├──" : "└──" );
+
+	std::cout << node->val << std::endl;
+	std::string new_prefix = prefix + (is_left ? "│   " : "    ");
+	_print_tree( new_prefix, node->left, true);
+	_print_tree( new_prefix, node->right, false);
 }
 
 
