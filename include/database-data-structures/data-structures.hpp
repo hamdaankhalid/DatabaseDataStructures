@@ -40,6 +40,8 @@ namespace DatabaseDataStructure {
 		void rotate_right(std::shared_ptr<RBLNode> node);
 		void _print_tree(std::string& prefix, std::shared_ptr<RBLNode> node, bool is_left);
 		void _inorder(std::shared_ptr<RBLNode> node);
+		void _remove_fix_up(std::shared_ptr<RBLNode> node);
+		void _transplant(std::shared_ptr<RBLNode> node_to_remove, std::shared_ptr<RBLNode> replacement_node);
 
 		public:
 		RedBlackTree();

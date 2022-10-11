@@ -113,8 +113,92 @@ bool DatabaseDataStructure::RedBlackTree::find(int value) {
 }
 
 
-void DatabaseDataStructure::RedBlackTree::remove(int value) {
+void DatabaseDataStructure::RedBlackTree::_remove_fix_up(std::shared_ptr<RBLNode> node) {
+  while(node != nullptr && node != root && node->isBlack) {
+    if (node == node->parent->left) {
+      auto sibling = node->parent->right;
+      if (sibling != nullptr && !sibling->isBlack) {
+        sibling->isBlack = true;
+        node->parent->isBlack = false;
+        rotate_left(node->parent);
+        sibling = node->parent->right;
+      }
+      
+      if (
+        (sibling->left == nullptr && sibling->right == nullptr) ||
+        (sibling->left->isBlack && sibling->right->isBlack)
+      ) {
+        sibling->isBlack = false;
+        node = node->parent;
+      } else {
+        if(sibling && (sibling->right == nullptr || sibling->right->isBlack)) {
+          sibling->left->isBlack = true;
+          sibling->isBlack = false;
+          rotate_right(sibling);
+          sibling = node->parent->right;
+        }
 
+        if (sibling)
+          sibling->isBlack = node->parent->isBlack;
+        node->parent->isBlack = true;
+        node->right->isBlack = true;
+        rotate_left(node->parent);
+        node = root;
+      }
+    }
+  }
+  if (node!=nullptr)
+    node->isBlack = true;
+}
+
+void DatabaseDataStructure::RedBlackTree::_transplant(std::shared_ptr<RBLNode> node_to_remove, std::shared_ptr<RBLNode> replacement_node) {
+  if (node_to_remove->parent == nullptr) {
+    root = replacement_node;
+    return;
+  }
+  if (node_to_remove == node_to_remove->parent->left) {
+    node_to_remove->parent->left = replacement_node;
+  } else {
+    node_to_remove->parent->right = replacement_node;
+  }
+
+  if (replacement_node != nullptr)
+    replacement_node->parent = node_to_remove->parent;
+}
+
+void DatabaseDataStructure::RedBlackTree::remove(int value) {
+ // find the node to delete then call fix up based on the node and its children scenario
+  auto curr = root;
+  while (curr!=nullptr) {
+    if (value == curr->val) {
+      break;
+    } else if (value < curr->val) {
+      curr = curr->left;
+    } else {
+      curr = curr->right;
+    }
+  }
+  if (curr == nullptr) return;
+
+  if (curr->left == nullptr) {
+    _transplant(curr, curr->right);
+    _remove_fix_up(curr->right);
+  } else if (curr->right == nullptr) {
+    _transplant(curr, curr->left);
+    _remove_fix_up(curr->left);
+  } else {
+    // find min in right subtree
+    auto right_subtree_curr = curr->right;
+    std::shared_ptr<RBLNode> right_subtree_min = right_subtree_curr;
+    while(right_subtree_curr !=nullptr) {
+      right_subtree_curr = right_subtree_curr->left;
+      if (right_subtree_curr!=nullptr){
+        right_subtree_min = right_subtree_curr;
+      }
+    }
+    _transplant(curr, right_subtree_min);
+    _remove_fix_up(right_subtree_min);
+  }
 }
 
 

@@ -64,10 +64,32 @@ TEST(RBL, Add)   {
   EXPECT_TRUE(rbl.find(-78));
 }
 
-// TEST(RBL, Find)   {
-//   DatabaseDataStructure::RedBlackTree rbl;
-//   EXPECT_FALSE(rbl.find(1));
-//   rbl.add(1);
-//   EXPECT_TRUE(rbl.find(1));
-// }
+TEST(RBL, Find)   {
+  DatabaseDataStructure::RedBlackTree rbl;
+  EXPECT_FALSE(rbl.find(1));
+  rbl.add(1);
+  EXPECT_TRUE(rbl.find(1));
+}
+
+TEST(RBL, Remove)   {
+  DatabaseDataStructure::RedBlackTree rbl;
+  
+  rbl.add(1);
+  rbl.add(21);
+  rbl.add(2);
+  rbl.add(-2);
+  rbl.add(-21);
+  rbl.add(34);
+  
+  EXPECT_TRUE(rbl.find(21));
+  rbl.remove(21);
+  EXPECT_FALSE(rbl.find(21));
+
+  EXPECT_TRUE(rbl.find(-21));
+  rbl.remove(-21);
+  EXPECT_FALSE(rbl.find(-21));
+
+  rbl.remove(1);
+  EXPECT_FALSE(rbl.find(1));
+}
 
