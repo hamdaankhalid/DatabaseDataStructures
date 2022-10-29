@@ -1,6 +1,8 @@
 #pragma once
 
 #include<memory>
+#include <functional>
+#include <vector>
 
 class Node;
 struct FindResult;
@@ -50,5 +52,16 @@ namespace DatabaseDataStructure {
 		void remove(int value);
 		void print();
 		void b_tree_print();
+	};
+
+	class BloomFilter {
+		public:
+		BloomFilter(int size);
+		void add(std::string item);
+		bool does_probably_exist(std::string item);
+
+		private:
+		std::vector<bool> _bit_flowers;
+		std::vector<std::hash<std::string>> _hashers;
 	};
 }
