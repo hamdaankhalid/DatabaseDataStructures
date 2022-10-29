@@ -3,6 +3,7 @@
 #include<memory>
 #include <functional>
 #include <vector>
+#include <string>
 
 class Node;
 struct FindResult;
@@ -56,7 +57,7 @@ namespace DatabaseDataStructure {
 
 	class BloomFilter {
 		public:
-		BloomFilter(int size);
+		BloomFilter(int size, std::vector<std::hash<std::string>> hashes);
 		void add(std::string item);
 		bool does_probably_exist(std::string item);
 
