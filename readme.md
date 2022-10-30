@@ -2,6 +2,6 @@
 
 - Binary Search Tree: DONE
 - Red Black Tree: DONE
-- Bloom Filters: TODO
+- Bloom Filters: DONE
 - LSM Tree: TODO
 
